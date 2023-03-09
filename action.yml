@@ -19,32 +19,14 @@ outputs:
 runs:
   using: 'composite'
   shell: bash
-  args:
-    - '-c'
-    - |
-      num1=$INPUT_NUMBER1
-      num2=$INPUT_NUMBER2
-      op=$INPUT_OPERATION
-
-      case $op in
-        'addition')
-          result=$((num1+num2))
-          ;;
-        'subtraction')
-          result=$((num1-num2))
-          ;;
-        'multiplication')
-          result=$((num1*num2))
-          ;;
-        'division')
-          result=$((num1/num2))
-          ;;
-        *)
-          echo "Invalid operation entered!"
-          exit 1
-          ;;
-      esac
-
-      echo "::set-output name=result::$result"
+  steps:
+    - name: Checking out Repository
+      uses: actions/checkout@v2
+      
+    - name: Calculate
+      run: |
+        $result = ${{ inputs.num1 }}${{ inputs.operator }}${{ inputs.num2 }}
+        echo result=$result >> $env:GITHUB_OUTPUT
+      id: result-output
 
         
