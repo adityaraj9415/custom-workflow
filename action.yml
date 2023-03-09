@@ -1,0 +1,31 @@
+name: 'Calculator Action'
+description: 'Calculates and gives the result based on the user inputs'
+
+inputs:
+  number1:
+    description: 'Entr First Number'
+    required: true
+    
+  number2:
+    description: 'Enter Second Number'
+    required: true
+    
+  operation:
+    description: 'Enter Operation(+, -, *, /)'
+    requried: true
+
+
+outputs:
+  result: 
+    description: 'The result of the calculation'
+    
+runs:
+  using: 'composite'
+  steps:
+    - name: Checking out the Repository
+      uses: actions/checkout@v2
+    
+    - name: Calculate
+      run: |
+        result=${{inputs.number1}}${{inputs.operation}}${{inputs.number2}}
+        echo "::set-output name=result::$result"
