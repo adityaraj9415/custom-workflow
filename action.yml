@@ -17,8 +17,8 @@ outputs:
     description: 'The result of the calculation'
 
 runs:
-  using: 'docker'
-  image: 'bash'
+  using: 'composite'
+  shell: 'bash'
   args:
     - '-c'
     - |
