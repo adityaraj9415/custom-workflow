@@ -18,12 +18,13 @@ outputs:
 
 runs:
   using: 'composite'
-  shell: bash
+  shell: 'bash'
   steps:
     - name: Checking out Repository
       uses: actions/checkout@v2
       
     - name: Calculate
+      shell: 'bash'
       run: |
         $result = ${{ inputs.num1 }}${{ inputs.operator }}${{ inputs.num2 }}
         
