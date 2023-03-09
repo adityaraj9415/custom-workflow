@@ -18,7 +18,7 @@ outputs:
 
 runs:
   using: 'composite'
-  shell: 'bash'
+  shell: bash
   args:
     - '-c'
     - |
