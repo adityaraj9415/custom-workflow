@@ -1,32 +1,50 @@
 name: 'Calculator Action'
-description: 'Calculates and gives the result based on the user inputs'
+description: 'Performs basic arithmetic calculations'
 
 inputs:
   number1:
-    description: 'Entr First Number'
+    description: 'The first number'
     required: true
-    
   number2:
-    description: 'Enter Second Number'
+    description: 'The second number'
     required: true
-    
   operation:
-    description: 'Enter Operation(+, -, *, /)'
-    requried: true
-
+    description: 'The operation to perform (addition, subtraction, multiplication, division)'
+    required: true
 
 outputs:
-  result: 
+  result:
     description: 'The result of the calculation'
-    
+
 runs:
-  using: 'composite'
-  steps:
-    - name: Checking out the Repository
-      uses: actions/checkout@v2
-    
-    - name: Calculate
-      shell: bash
-      run: |
-        result=${{inputs.number1}}${{inputs.operation}}${{inputs.number2}}
+  using: 'docker'
+  image: 'bash'
+  args:
+    - '-c'
+    - |
+      num1=$INPUT_NUMBER1
+      num2=$INPUT_NUMBER2
+      op=$INPUT_OPERATION
+
+      case $op in
+        'addition')
+          result=$((num1+num2))
+          ;;
+        'subtraction')
+          result=$((num1-num2))
+          ;;
+        'multiplication')
+          result=$((num1*num2))
+          ;;
+        'division')
+          result=$((num1/num2))
+          ;;
+        *)
+          echo "Invalid operation entered!"
+          exit 1
+          ;;
+      esac
+
+      echo "::set-output name=result::$result"
+
         
