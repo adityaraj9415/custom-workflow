@@ -26,6 +26,7 @@ runs:
       uses: actions/checkout@v2
     
     - name: Calculate
+      shell: bash
       run: |
         result=${{inputs.number1}}${{inputs.operation}}${{inputs.number2}}
         echo "::set-output name=result::$result"
