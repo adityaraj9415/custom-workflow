@@ -18,7 +18,6 @@ outputs:
 
 runs:
   using: 'composite'
-  shell: 'bash'
   outputs:
     result: ${{ steps.result-output.outputs.result }}
   steps:
