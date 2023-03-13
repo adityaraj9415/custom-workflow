@@ -19,15 +19,22 @@ outputs:
 runs:
   using: 'composite'
   shell: 'bash'
+  outputs:
+    result: ${{ steps.result-output.outputs.result }}
   steps:
     - name: Checking out Repository
       uses: actions/checkout@v2
       
     - name: Calculate
       shell: 'bash'
+      id: result-output
       run: |
+        number1=${{ inputs.number1 }}
+        number2=${{ inputs.number2 }}
+        operation=${{ inputs.operation }}
         $result = ${{ inputs.num1 }}${{ inputs.operator }}${{ inputs.num2 }}
         
-      
+        echo result=$result >> $env:GITHUB_OUTPUT
+        echo 'Result of calculation is ${{ steps.calculate.outputs.result }}'
 
         
